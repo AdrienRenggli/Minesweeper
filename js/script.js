@@ -109,7 +109,10 @@ function renderBoard() {
                     }                    
                 } else {
                     if (gameBoard[row][col].neighboringMines > 0) {
-                        cell.textContent = gameBoard[row][col].neighboringMines;
+                        const mineNumber = document.createElement('span');
+                        mineNumber.classList.add('mine-number', `mine-${gameBoard[row][col].neighboringMines}`);
+                        mineNumber.textContent = gameBoard[row][col].neighboringMines;
+                        cell.appendChild(mineNumber);
                     }
                 }
             }
