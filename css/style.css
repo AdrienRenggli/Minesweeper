@@ -14,6 +14,13 @@ html, body {
     touch-action: manipulation;
 }
 
+body, .game-container, .game-board, .cell {
+    -webkit-user-select: none;  /* Safari */
+    -moz-user-select: none;     /* Firefox */
+    -ms-user-select: none;      /* Explorer */
+    user-select: none;          /* others */
+}
+
 .game-container {
     text-align: center;
     display: grid;

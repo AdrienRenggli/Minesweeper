@@ -149,6 +149,7 @@ function renderBoard() {
 
             // Touch events for mobile
             cell.addEventListener('touchstart', (e) => {
+                e.preventDefault();
                 longPressTriggered = false;
                 pressTimer = setTimeout(() => {
                     toggleFlag(row, col);
@@ -157,6 +158,7 @@ function renderBoard() {
             });
 
             cell.addEventListener('touchend', (e) => {
+                e.preventDefault();
                 clearTimeout(pressTimer);
                 if (!longPressTriggered) {
                     handleClick(row, col, e);
