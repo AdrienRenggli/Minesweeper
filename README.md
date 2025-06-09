@@ -7,7 +7,7 @@ A classic Minesweeper game built with **HTML**, **CSS**, and **JavaScript**. Cli
 
 - 10×10 grid with 15 randomly placed mines.
 - Left-click to reveal cells.
-- Right-click to place or remove flags.
+- Right-click or long press to place or remove flags.
 - Timer starts on first click.
 - Flag counter to track remaining flags.
 - Game over screen with 💥 explosion emoji when a mine is triggered.
