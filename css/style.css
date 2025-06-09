@@ -1,15 +1,24 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
+    margin: 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    min-height: 100vh;
+    padding-bottom: 50px;
+}
+
+html, body {
+    touch-action: manipulation;
 }
 
 .game-container {
     text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding-bottom: 20px;
 }
 
 .game-board {
@@ -51,6 +60,7 @@ button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    width: auto;
 }
 
 .overlay {
@@ -90,4 +100,14 @@ button {
     font-size: 18px;
     margin: 10px 0;
     font-weight: bold;
+}
+
+footer {
+    margin-top: 2rem; 
+    text-align: center; 
+    font-size: 0.9em;
+}
+
+footer p {
+    margin: 0;
 }

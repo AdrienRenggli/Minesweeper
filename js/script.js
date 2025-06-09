@@ -13,6 +13,9 @@ let timerInterval = null;
 let gameStarted = false;
 let gameEnded = false;
 
+let pressTimer = null;
+let longPressTriggered = false;
+
 const gameBoardElement = document.getElementById('game-board');
 const resetButton = document.getElementById('reset-btn');
 const gameOverScreen = document.getElementById('game-over-screen');
@@ -122,6 +125,46 @@ function renderBoard() {
             cell.addEventListener('contextmenu', (event) => {
                 event.preventDefault();
                 handleClick(row, col, event);
+            });
+
+            // Mouse and touch listeners
+            cell.addEventListener('mousedown', (e) => {
+                longPressTriggered = false;
+                pressTimer = setTimeout(() => {
+                    toggleFlag(row, col);
+                    longPressTriggered = true;
+                }, 500); // 500ms = long press
+            });
+
+            cell.addEventListener('mouseup', (e) => {
+                clearTimeout(pressTimer);
+                if (!longPressTriggered && e.button === 0) {
+                    handleClick(row, col, e);
+                }
+            });
+
+            cell.addEventListener('mouseleave', () => {
+                clearTimeout(pressTimer);
+            });
+
+            // Touch events for mobile
+            cell.addEventListener('touchstart', (e) => {
+                longPressTriggered = false;
+                pressTimer = setTimeout(() => {
+                    toggleFlag(row, col);
+                    longPressTriggered = true;
+                }, 500);
+            });
+
+            cell.addEventListener('touchend', (e) => {
+                clearTimeout(pressTimer);
+                if (!longPressTriggered) {
+                    handleClick(row, col, e);
+                }
+            });
+
+            cell.addEventListener('touchmove', () => {
+                clearTimeout(pressTimer); // Cancel if user moves finger
             });
 
             gameBoardElement.appendChild(cell);
