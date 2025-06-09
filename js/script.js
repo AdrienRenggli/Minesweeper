@@ -226,8 +226,10 @@ function showWin() {
 function revealMines() {
     for (let row = 0; row < boardSize; row++) {
         for (let col = 0; col < boardSize; col++) {
-            if (gameBoard[row][col].isMine) {
-                gameBoard[row][col].isRevealed = true;
+            const cell = gameBoard[row][col];
+            if (cell.isMine) {
+                cell.isRevealed = true;
+                cell.isFlagged = false;
             }
         }
     }
