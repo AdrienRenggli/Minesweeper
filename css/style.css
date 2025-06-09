@@ -39,6 +39,10 @@ body {
     background-color: red;
 }
 
+.cell span {
+    font-size: 18px;
+}
+
 button {
     margin-top: 20px;
     padding: 10px 20px;
