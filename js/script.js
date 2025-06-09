@@ -6,6 +6,7 @@ let revealedCells = [];
 let mines = [];
 let flaggedCells = 0;
 let revealedNonMineCells = 0;
+let explodedMine = null;
 
 let startTime = null;
 let timerInterval = null;
@@ -34,6 +35,7 @@ function createBoard() {
     resetTimer();
     gameEnded = false;
     gameStarted = false;
+    explodedMine = null;
 
     // Initialize the game board with empty cells
     for (let row = 0; row < boardSize; row++) {
@@ -97,7 +99,11 @@ function renderBoard() {
             if (gameBoard[row][col].isRevealed) {
                 cell.classList.add('revealed');
                 if (gameBoard[row][col].isMine) {
-                    cell.classList.add('mine');
+                    if (explodedMine && explodedMine.row === row && explodedMine.col === col) {
+                        cell.innerHTML = '💥'
+                    }else {
+                        cell.innerHTML = '💣';
+                    }                    
                 } else {
                     if (gameBoard[row][col].neighboringMines > 0) {
                         cell.textContent = gameBoard[row][col].neighboringMines;
@@ -145,6 +151,7 @@ function handleClick(row, col) {
 
     if (gameBoard[row][col].isMine) {
         gameBoard[row][col].isRevealed = true;
+        explodedMine = { row, col };
         renderBoard();
         showGameOver();
         revealMines();
