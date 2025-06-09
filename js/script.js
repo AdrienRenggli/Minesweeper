@@ -7,10 +7,18 @@ let mines = [];
 let flaggedCells = 0;
 let revealedNonMineCells = 0;
 
+let startTime = null;
+let timerInterval = null;
+let gameStarted = false;
+let gameEnded = false;
+
 const gameBoardElement = document.getElementById('game-board');
 const resetButton = document.getElementById('reset-btn');
 const gameOverScreen = document.getElementById('game-over-screen');
 const playAgainButton = document.getElementById('play-again-btn');
+const flagCouter = document.getElementById('flag-counter');
+const timerDisplay = document.getElementById('timer');
+
 
 
 // Create a game board
@@ -20,6 +28,10 @@ function createBoard() {
     mines = [];
     flaggedCells = 0;
     revealedNonMineCells = 0;
+    updateFlagCounter();
+    resetTimer();
+    gameEnded = false;
+    gameStarted = false;
 
     // Initialize the game board with empty cells
     for (let row = 0; row < boardSize; row++) {
@@ -111,6 +123,13 @@ function renderBoard() {
 
 // Handle cell click
 function handleClick(row, col) {
+    if (gameEnded) return;
+
+    if (!gameEnded && !gameStarted) {
+        gameStarted = true;
+        startTimer();
+    }
+
     if (event.button === 2) {
         toggleFlag(row, col);
         return;
@@ -138,6 +157,8 @@ function handleClick(row, col) {
 
 function showGameOver() {
     gameOverScreen.classList.remove('hidden');
+    stopTimer();
+    gameEnded = true;
 }
 
 function revealMines() {
@@ -162,7 +183,13 @@ function toggleFlag(row, col) {
             cell.isFlagged = true;
             flaggedCells++;
     }
+
+    updateFlagCounter();
     renderBoard();
+}
+
+function updateFlagCounter() {
+    flagCouter.textContent = `Flags Left: ${mineCount - flaggedCells}`;
 }
 
 // Reveal neighboring cells if there are no neighboring mines
@@ -175,8 +202,7 @@ function revealNeighbors(row, col) {
             if (newRow >= 0 && newCol >= 0 && newRow < boardSize && newCol < boardSize) {
                 if (!gameBoard[newRow][newCol].isRevealed && !gameBoard[newRow][newCol].isMine) {
                     gameBoard[newRow][newCol].isRevealed = true;
-                    gameBoard[newRow][newCol].isFlagged = false;
-                    flaggedCells--;
+                    toggleFlag(newRow, newCol);
                     revealedCells.push({ row: newRow, col: newCol });
                     if (gameBoard[newRow][newCol].neighboringMines === 0) {
                         revealNeighbors(newRow, newCol);
@@ -185,6 +211,26 @@ function revealNeighbors(row, col) {
             }
         }
     }
+}
+
+function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        timerDisplay.textContent = `Time: ${elapsed}s`;
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+}
+
+function resetTimer() {
+    stopTimer();
+    timerDisplay.textContent = `Time: 0s`;
+    startTime = null;
+    gameStarted = false;
+    gameEnded = false;
 }
 
 // Reset the game
