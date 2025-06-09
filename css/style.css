@@ -63,7 +63,7 @@ button {
     z-index: 1000;
 }
 
-.game-over-content {
+.game-over-content, .win-content {
     background-color: white;
     padding: 40px;
     border-radius: 10px;
@@ -72,6 +72,10 @@ button {
 }
 
 .game-over-content h2 {
+    margin: 0 0 20px;
+}
+
+.win-content h2 {
     margin: 0 0 20px;
 }
 

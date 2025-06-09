@@ -15,7 +15,9 @@ let gameEnded = false;
 const gameBoardElement = document.getElementById('game-board');
 const resetButton = document.getElementById('reset-btn');
 const gameOverScreen = document.getElementById('game-over-screen');
-const playAgainButton = document.getElementById('play-again-btn');
+const winScreen = document.getElementById('win-screen');
+const overPlayAgainButton = document.getElementById('over-play-again-btn')
+const winPlayAgainButton = document.getElementById('win-play-again-btn');
 const flagCouter = document.getElementById('flag-counter');
 const timerDisplay = document.getElementById('timer');
 
@@ -138,6 +140,7 @@ function handleClick(row, col) {
     if (gameBoard[row][col].isFlagged) return;
 
     gameBoard[row][col].isRevealed = true;
+    revealedNonMineCells++;
     revealedCells.push({ row, col });
 
     if (gameBoard[row][col].isMine) {
@@ -153,10 +156,19 @@ function handleClick(row, col) {
     }
 
     renderBoard();
+    if (revealedNonMineCells === boardSize * boardSize - mineCount) {
+        showWin();
+    }
 }
 
 function showGameOver() {
     gameOverScreen.classList.remove('hidden');
+    stopTimer();
+    gameEnded = true;
+}
+
+function showWin() {
+    winScreen.classList.remove('hidden');
     stopTimer();
     gameEnded = true;
 }
@@ -203,6 +215,7 @@ function revealNeighbors(row, col) {
                 if (!gameBoard[newRow][newCol].isRevealed && !gameBoard[newRow][newCol].isMine) {
                     gameBoard[newRow][newCol].isRevealed = true;
                     toggleFlag(newRow, newCol);
+                    revealedNonMineCells++;
                     revealedCells.push({ row: newRow, col: newCol });
                     if (gameBoard[newRow][newCol].neighboringMines === 0) {
                         revealNeighbors(newRow, newCol);
@@ -237,8 +250,12 @@ function resetTimer() {
 resetButton.addEventListener('click', createBoard);
 
 // Play again
-playAgainButton.addEventListener('click', () => {
+overPlayAgainButton.addEventListener('click', () => {
     gameOverScreen.classList.add('hidden');
+    createBoard();
+});
+winPlayAgainButton.addEventListener('click', () => {
+    winScreen.classList.add('hidden');
     createBoard();
 });
 
