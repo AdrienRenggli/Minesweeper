@@ -177,6 +177,11 @@ function handleClick(row, col) {
     if (gameEnded) return;
 
     if (!gameEnded && !gameStarted) {
+        if (gameBoard[row][col].isMine) {
+            createBoard();
+            handleClick(row, col);
+            return;
+        }
         gameStarted = true;
         startTimer();
     }
