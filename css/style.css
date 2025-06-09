@@ -111,3 +111,65 @@ footer {
 footer p {
     margin: 0;
 }
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 600px) {
+    .game-board {
+        grid-template-columns: repeat(10, 35px); /* Reduce cell size */
+        grid-gap: 3px; /* Smaller gap between cells */
+    }
+
+    .cell {
+        width: 35px;
+        height: 35px;
+        font-size: 16px; /* Reduce font size for cells */
+    }
+
+    #flag-counter, #timer {
+        font-size: 16px; /* Adjust text size for small screens */
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 14px; /* Make button smaller */
+    }
+
+    .game-over-content, .win-content {
+        padding: 30px; /* Reduce padding for the win and game over screens */
+    }
+
+    footer p {
+        font-size: 0.8em; /* Smaller text for footer */
+    }
+}
+
+/* Media Queries for even smaller screens (e.g., mobile) */
+@media (max-width: 400px) {
+    .game-board {
+        grid-template-columns: repeat(10, 30px); /* Reduce cell size even more */
+        grid-gap: 2px; /* Even smaller gap */
+    }
+
+    .cell {
+        width: 30px;
+        height: 30px;
+        font-size: 14px; /* Further reduce font size for cells */
+    }
+
+    #flag-counter, #timer {
+        font-size: 14px; /* Further reduce text size */
+    }
+
+    button {
+        padding: 6px 12px;
+        font-size: 12px; /* Further reduce button size */
+    }
+
+    .game-over-content, .win-content {
+        padding: 20px; /* Even smaller padding */
+    }
+
+    footer p {
+        font-size: 0.7em; /* Even smaller footer text */
+    }
+}
