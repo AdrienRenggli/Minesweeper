@@ -49,10 +49,9 @@ body, .game-container, .game-board, .cell {
 }
 
 .cell .mine-number {
-    font-family: 'Press Start 2P', monospace;
+    font-family: 'Press Start 2P';
     text-align: center;
     display: inline-block;
-    width: 1em;
 }
 
 .cell.revealed {
