@@ -136,7 +136,7 @@ function renderBoard() {
                 pressTimer = setTimeout(() => {
                     toggleFlag(row, col);
                     longPressTriggered = true;
-                }, 500); // 500ms = long press
+                }, 150); // 150ms = long press
             });
 
             cell.addEventListener('mouseup', (e) => {
